@@ -12,10 +12,8 @@ env:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
     # ---------- фронт ----------
     - name: Install client deps
@@ -23,24 +21,29 @@ jobs:
       working-directory: client
 
     - name: Build client
-      run: CI=false npm run build
+      run: npm run build
       working-directory: client
 
-    # ---------- бэк ----------
-    - name: Install backend deps (prod only)
+    # копируем build → backend/client/build
+    - name: Copy build into backend
       run: |
-        npm ci --omit=dev
+        rm -rf backend/client/build
+        mkdir -p backend/client
+        cp -R client/build backend/client/
+
+    # ---------- бэк ----------
+    - name: Install backend deps
+      run: npm ci --omit=dev
       working-directory: backend
 
-
+    # ---------- деплой ----------
     - name: Azure Login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    # ---------- деплой ----------
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        package: backend           # деплоим backend/ (внутри уже есть client/build)
+        package: backend
