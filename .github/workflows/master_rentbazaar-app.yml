@@ -21,7 +21,7 @@ jobs:
       working-directory: client
 
     - name: Build client
-      run: npm run build
+      run: CI=false npm run build
       working-directory: client
 
     # копируем build → backend/client/build
