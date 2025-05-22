@@ -84,7 +84,19 @@ const OfferDetail = () => {
         </div>
       </div>
 
-      {/* 🔹 Раздел с отзывами */}
+      {offer.images && offer.images.length > 0 && (
+  <div className="mb-4 d-flex flex-wrap gap-2">
+    {offer.images.map((img) => (
+      <img
+        key={img.url}
+        src={`http://localhost:5000${img.url}`} 
+        alt={img.alt || offer.name}
+        style={{ width: 150, height: 150, objectFit: "cover", borderRadius: 6 }}
+      />
+    ))}
+  </div>
+)}
+
       <h3 className="mt-5">Reviews</h3>
       <div className="list-group">
         {offer.reviews.length > 0 ? (

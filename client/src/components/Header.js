@@ -30,6 +30,14 @@ const Header = () => {
                   Orders
                 </Link>
               </li>
+              <li>
+                <Link to="/myOffers" className="nav-link text-white">
+                  <svg className="bi d-block mx-auto mb-1" width="24" height="24">
+                    <use xlinkHref="#table"></use>
+                  </svg>
+                  My Offers
+                </Link>
+              </li>
             </ul>
             )}
             

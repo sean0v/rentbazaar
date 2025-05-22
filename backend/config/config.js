@@ -1,14 +1,20 @@
 
-require('dotenv').config(); // Загружаем переменные из .env
+require('dotenv').config();
 
 module.exports = {
   development: {
-    username: process.env.DB_USER || "postgres",
-    password: process.env.DB_PASSWORD || "password",
-    database: process.env.DB_NAME || "mydatabase",
-    host: process.env.DB_HOST || "127.0.0.1",
-    port: process.env.DB_PORT || 5432,
-    dialect: "postgres"
+    url: process.env.DB_URL,
+    dialect: 'postgres',
+    dialectOptions: {
+      ssl: { require: true, rejectUnauthorized: false } 
+    }
+  },
+  production: {
+    url: process.env.DB_URL,
+    dialect: 'postgres',
+    dialectOptions: {
+      ssl: { require: true, rejectUnauthorized: false }
+    }
   }
 };
 

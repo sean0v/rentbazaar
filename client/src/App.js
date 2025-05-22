@@ -8,6 +8,8 @@ import Header from "./components/Header";
 import Orders from "./pages/Orders";
 import Review from "./pages/Review";
 import CreateOffer from "./pages/CreateOffer";
+import MyOffers from "./pages/MyOffers";
+import UpdateOffer from "./pages/UpdateOffer";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path="/orders" element={<Orders />} />
         <Route path="/review/:id" element={<Review />} />
         <Route path="/createOffer" element={<CreateOffer />} />
+        <Route path="/myOffers" element={<MyOffers />} />
+        <Route path="/updateOffer/:id" element={<UpdateOffer />} />
       </Routes>
     </Router>
   );

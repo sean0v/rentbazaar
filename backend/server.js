@@ -2,20 +2,24 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { Pool } = require('pg');
-
+const path    = require('path'); 
 const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
 
-// Подключение к PostgreSQL
+app.use(
+  '/uploads',                             
+  express.static(path.join(__dirname, 'uploads')) 
+);
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+app.get('*', (_req, res) =>
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+);
 const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT
+  connectionString: process.env.DB_URL,
+  ssl: { rejectUnauthorized: false }    
 });
 
 app.use('/api/users', require('./routes/userRoutes.js'));

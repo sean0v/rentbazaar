@@ -15,9 +15,9 @@ const Offers = () => {
 
   useEffect(() => {
     fetchOffers();
-  }, [search, category, sortBy, order]); // Перезапрос при изменении фильтров
+  }, [search, category, sortBy, order]); 
 
-  // Запрос офферов с фильтрацией на бэке (POST-запрос)
+
   const fetchOffers = async () => {
     try {
       const response = await fetch("http://localhost:5000/api/offers", {
@@ -34,13 +34,12 @@ const Offers = () => {
       const data = await response.json();
       setOffers(data.offers || []);
     } catch (error) {
-      console.error("Ошибка загрузки офферов:", error);
+      console.error("Error fetching offers:", error);
     }
   };
 
   return (
     <div className="container mt-4">
-      {/* Фильтры и поиск */}
       <div className="d-flex justify-content-between mb-3">
         <select className="form-select w-25" onChange={(e) => setCategory(e.target.value)}>
           <option value="">All Categories</option>
@@ -62,6 +61,7 @@ const Offers = () => {
         <select className="form-select w-25" onChange={(e) => setSortBy(e.target.value)}>
           <option value="createdAt">By Date</option>
           <option value="price">By Price</option>
+          <option value="rating">By Raiting</option>
         </select>
 
         <select className="form-select w-25" onChange={(e) => setOrder(e.target.value)}>

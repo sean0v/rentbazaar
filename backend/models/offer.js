@@ -31,6 +31,10 @@ module.exports = (sequelize, DataTypes) => {
     Offer.belongsTo(models.User, { foreignKey: 'userId', as: 'postByUser' });
     Offer.hasMany(models.Review, { foreignKey: 'offerId', as: 'reviews' });
     Offer.hasMany(models.Users2Offers, { foreignKey: 'offerId', as: 'boughtByUsers' });
+    Offer.hasMany(models.OfferImage, {
+  foreignKey: 'offerId',
+  as: 'images'
+});
   };
   return Offer;
 };
