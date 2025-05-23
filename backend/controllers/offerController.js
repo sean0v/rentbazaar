@@ -2,7 +2,11 @@ const { User } = require('../models');
 
 const multer = require('multer');
 const path = require('path');
-const fs   = require('fs'); 
+
+const fs       = require('fs');
+const { promisify } = require('util');
+const unlinkAsync = promisify(fs.unlink);
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, 'uploads/offers'),
   filename:    (req, file, cb) =>
@@ -167,23 +171,39 @@ exports.deleteOffer = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const offer = await Offer.findByPk(id, { include: { model: OfferImage, as: 'images' }, transaction: t });
+    const offer = await Offer.findByPk(id, {
+      include: [{ model: OfferImage, as: 'images' }],
+      transaction: t
+    });
+
     if (!offer) {
       await t.rollback();
       return res.status(404).json({ message: 'Offer not found' });
     }
 
-    for (const img of offer.images) {
-      const fullPath = path.join('.', img.url);
-      fs.unlink(fullPath).catch(() => {}); 
-    }
+    await Promise.all(
+      offer.images.map(img => {
+        const filePath = path.join(
+          process.env.UPLOAD_DIR || '/home', 
+          'uploads',
+          'offers',
+          path.basename(img.url)           
+        );
+        return unlinkAsync(filePath).catch(err => {
+          if (err.code !== 'ENOENT') console.warn('[unlink]', err.message);
+        });
+      })
+    );
 
+
+    await OfferImage.destroy({ where: { offerId: id }, transaction: t });
     await offer.destroy({ transaction: t });
 
     await t.commit();
-    return res.status(204).end();
+    return res.sendStatus(204);            
   } catch (err) {
     await t.rollback();
+    console.error('[DELETE OFFER]', err);
     return res.status(500).json({ error: err.message });
   }
 };
