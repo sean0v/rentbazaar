@@ -19,7 +19,7 @@ const Review = () => {
     setSuccess(null);
 
     try {
-      const response = await fetch("http://localhost:5000/api/reviews/placeReview", {
+      const response = await fetch("https://rentbazaar-app.azurewebsites.net/api/reviews/placeReview", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ mark, description, userId, offerId }),

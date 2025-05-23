@@ -79,7 +79,7 @@ const EditOffer = () => {
         newImages.forEach((f) => formData.append("images", f));
       }
 
-      const res = await fetch(`http://localhost:5000/api/offers/${id}`, {
+      const res = await fetch(`https://rentbazaar-app.azurewebsites.net/api/offers/${id}`, {
         method: "PUT",
         body: formData,
       });

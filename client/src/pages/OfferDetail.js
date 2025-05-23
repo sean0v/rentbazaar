@@ -28,7 +28,7 @@ const OfferDetail = () => {
   const [success, setSuccess] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/offers/${id}`)
+    fetch(`https://rentbazaar-app.azurewebsites.net/api/offers/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setOffer(data.offer);
@@ -50,7 +50,7 @@ const OfferDetail = () => {
     setSuccess(null);
 
     try {
-      const response = await fetch("http://localhost:5000/api/orders/placeOrder", {
+      const response = await fetch("https://rentbazaar-app.azurewebsites.net/api/orders/placeOrder", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId, offerId: id }),
@@ -89,7 +89,7 @@ const OfferDetail = () => {
     {offer.images.map((img) => (
       <img
         key={img.url}
-        src={`http://localhost:5000${img.url}`} 
+        src={`https://rentbazaar-app.azurewebsites.net${img.url}`} 
         alt={img.alt || offer.name}
         style={{ width: 150, height: 150, objectFit: "cover", borderRadius: 6 }}
       />

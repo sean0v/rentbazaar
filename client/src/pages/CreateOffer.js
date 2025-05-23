@@ -50,7 +50,7 @@ const CreateOffer = () => {
       images.forEach((file) => formData.append("images", file));
 
       const response = await fetch(
-        "http://localhost:5000/api/offers/placeOffer",
+        "https://rentbazaar-app.azurewebsites.net/api/offers/placeOffer",
         {
           method: "POST",
           body: formData, 

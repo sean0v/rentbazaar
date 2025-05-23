@@ -21,7 +21,7 @@ const Orders = () => {
   useEffect(() => {
     if (!userId) return;
     
-    fetch(`http://localhost:5000/api/orders/getOrders/${userId}`)
+    fetch(`https://rentbazaar-app.azurewebsites.net/api/orders/getOrders/${userId}`)
       .then((res) => res.json())
       .then((data) => setOrders(data.orders || []))
       .catch((error) => console.error("Error loading orders", error));
@@ -32,14 +32,14 @@ const Orders = () => {
   };
 
   const fetchOrders = async () => {
-    const response = await fetch(`http://localhost:5000/api/orders/${userId}`);
+    const response = await fetch(`https://rentbazaar-app.azurewebsites.net/api/orders/${userId}`);
     const data = await response.json();
     setOrders(data.orders || []);
   };
 
   const approveOrder = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/orders/updateOrder/${id}`, {
+      const response = await fetch(`https://rentbazaar-app.azurewebsites.net/api/orders/updateOrder/${id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" }
       });

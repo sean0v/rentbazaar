@@ -23,7 +23,7 @@ const MyOffers = () => {
     setError(null);
     try {
       const res = await fetch(
-        `http://localhost:5000/api/offers/myOffers/${userId}`
+        `https://rentbazaar-app.azurewebsites.net/api/offers/myOffers/${userId}`
       );
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Error loading offers");
@@ -41,7 +41,7 @@ const MyOffers = () => {
     if (!confirm) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/offers/${id}`, {
+      const res = await fetch(`https://rentbazaar-app.azurewebsites.net/api/offers/${id}`, {
         method: "DELETE",
       });
       if (!res.ok) {
