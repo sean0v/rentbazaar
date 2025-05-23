@@ -39,4 +39,5 @@ app.get('/api/test', async (req, res) => {
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
+    console.log('[DB_URL]', process.env.DB_URL);
 });

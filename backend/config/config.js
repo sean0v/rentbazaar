@@ -3,14 +3,22 @@ require('dotenv').config();
 
 module.exports = {
   development: {
-    url: process.env.DB_URL,
+    username: 'neondb_owner',
+    password: 'npg_ZDkSPtn54uBx',
+    database: 'neondb',
+    host: 'ep-lingering-forest-a90pyy5j.gwc.azure.neon.tech',
+    port: 5432,
     dialect: 'postgres',
     dialectOptions: {
-      ssl: { require: true, rejectUnauthorized: false } 
+      ssl: { require: true, rejectUnauthorized: false }
     }
   },
   production: {
-    url: process.env.DB_URL,
+    username: 'neondb_owner',
+    password: 'npg_ZDkSPtn54uBx',
+    database: 'neondb',
+    host: 'ep-lingering-forest-a90pyy5j.gwc.azure.neon.tech',
+    port: 5432,
     dialect: 'postgres',
     dialectOptions: {
       ssl: { require: true, rejectUnauthorized: false }
