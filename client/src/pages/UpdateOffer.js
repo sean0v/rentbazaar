@@ -9,9 +9,10 @@ const OFFER_TYPES = {
 };
 
 const GAMES = {
-  2: "Fortnite",
-  3: "CS 2",
-  4: "DOTA 2",
+  5: "Roblox",
+  6: "Steam",
+  7: "World of Warcraft",
+  8: "War Thunder"
 };
 
 
