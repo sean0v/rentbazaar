@@ -13,10 +13,7 @@ app.use(
   '/uploads',                             
   express.static(path.join(__dirname, 'uploads')) 
 );
-app.use(express.static(path.join(__dirname, 'client', 'build')));
-app.get('*', (_req, res) =>
-  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-);
+
 const pool = new Pool({
   connectionString: process.env.DB_URL,
   ssl: { rejectUnauthorized: false }    
@@ -36,6 +33,11 @@ app.get('/api/test', async (req, res) => {
         res.status(500).json({ success: false, error: err.message });
     }
 });
+
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+app.get('*', (_req, res) =>
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
