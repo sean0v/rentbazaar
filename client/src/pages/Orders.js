@@ -4,13 +4,13 @@ import { format } from "date-fns";
 import { Link } from "react-router-dom";
 
 const ORDER_STATUSES = {
-  1: "Pending",
-  2: "Approved"
+  1: "Gaida",
+  2: "Apstiprināts"
 }
 
 const OFFER_TYPES = {
-  1: "Game Currency",
-  2: "Account",
+  1: "Spēļu valūta",
+  2: "Konti",
 };
 
 const Orders = () => {
@@ -24,7 +24,7 @@ const Orders = () => {
     fetch(`https://rentbazaar-app.azurewebsites.net/api/orders/getOrders/${userId}`)
       .then((res) => res.json())
       .then((data) => setOrders(data.orders || []))
-      .catch((error) => console.error("Error loading orders", error));
+      .catch((error) => console.error("Kļūda", error));
   }, [userId]);
 
   const toggleOrderDetails = (orderId) => {
@@ -54,7 +54,7 @@ const Orders = () => {
 
   return (
     <div className="container mt-4">
-      <h2>My Orders</h2>
+      <h2>Mani pasūtījumi</h2>
 
       <div className="row">
         {orders.length > 0 ? (
@@ -63,41 +63,41 @@ const Orders = () => {
               <div className="card shadow-sm">
                 <div className="card-body d-flex align-items-center justify-content-between">
                   <div>
-                    <h5 className="card-title">Order #{order.id}</h5>
+                    <h5 className="card-title">Pasūtījuma #{order.id}</h5>
                     <p className="card-text">
                         
                       <strong>Status:</strong> {ORDER_STATUSES[order.status] || "Unknown status"}
                     </p>
                     <p className="card-text">
-                      <strong>Date:</strong> {format(new Date(order.createdAt), "dd.MM.yyyy")}
+                      <strong>Datums:</strong> {format(new Date(order.createdAt), "dd.MM.yyyy")}
                     </p>
                     <button
                       className="btn btn-link p-0"
                       onClick={() => toggleOrderDetails(order.id)}
                     >
-                      {expandedOrderId === order.id ? "Hide details" : "Show details"}
+                      {expandedOrderId === order.id ? "Aizvērt detaļas" : "Parādīt detaļas"}
                     </button>
                   </div>
 
                   <div className="d-flex">
-                    {order.status === 2 ? null : <button className="btn btn-success me-2" onClick={() => approveOrder(order.id)}>Approve</button>}
-                    <Link to={`/review/${order.offer.id}`} className="btn btn-primary">Review</Link>
+                    {order.status === 2 ? null : <button className="btn btn-success me-2" onClick={() => approveOrder(order.id)}>Apstiprināt</button>}
+                    <Link to={`/review/${order.offer.id}`} className="btn btn-primary">Atsauces</Link>
                   </div>
                 </div>
 
                 {expandedOrderId === order.id && order.offer && (
                   <div className="card-footer bg-light">
                     <h6 className="mb-2">{order.offer.name}</h6>
-                    <p className="mb-1"><strong>Category:</strong> {OFFER_TYPES[order.offer.type]}</p>
-                    <p className="mb-1"><strong>Price:</strong> {order.offer.price} €</p>
-                    <p className="mb-1"><strong>Description:</strong> {order.offer.description}</p>
+                    <p className="mb-1"><strong>Kategorija:</strong> {OFFER_TYPES[order.offer.type]}</p>
+                    <p className="mb-1"><strong>Cena:</strong> {order.offer.price} €</p>
+                    <p className="mb-1"><strong>Apraksts:</strong> {order.offer.description}</p>
                   </div>
                 )}
               </div>
             </div>
           ))
         ) : (
-          <p className="text-center text-muted">No orders yet</p>
+          <p className="text-center text-muted">Vēl nav pasūtījumu</p>
         )}
       </div>
     </div>

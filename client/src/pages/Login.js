@@ -47,7 +47,7 @@ const Login = () => {
               width="72"
               height="57"
             /> */}
-            <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+            <h1 className="h3 mb-3 fw-normal">Lūdzu pizslēdzaties</h1>
           </div>
 
           {error && <p className="text-danger text-center">{error}</p>}
@@ -62,7 +62,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <label htmlFor="floatingInput">Email address</label>
+            <label htmlFor="floatingInput">E-adrese</label>
           </div>
 
           <div className="form-floating mb-3">
@@ -75,7 +75,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <label htmlFor="floatingPassword">Password</label>
+            <label htmlFor="floatingPassword">Parole</label>
           </div>
 
           {/* <div className="form-check text-start my-3">
@@ -86,11 +86,11 @@ const Login = () => {
           </div> */}
 
           <button className="btn btn-primary w-100 py-2" type="submit">
-            Sign in
+            Pieslēgties
           </button>
 
           <p className="mt-3 text-center">
-            Do not have an account? <Link to="/register">Register</Link>
+            Nav konta? <Link to="/register">Reģistrēties</Link>
           </p>
 
         </form>

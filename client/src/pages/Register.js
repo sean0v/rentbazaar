@@ -13,7 +13,7 @@ const Register = () => {
   const validateEmail = (value) => {
     setEmail(value);
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    setEmailError(emailRegex.test(value) ? null : "Incorrect email address");
+    setEmailError(emailRegex.test(value) ? null : "Nepareiza e-pasta adrese");
   };
 
   const validatePassword = (value) => {
@@ -22,9 +22,9 @@ const Register = () => {
     const hasUpperCase = /[A-Z]/.test(value);
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
 
-    if (!minLength) setPasswordError("Password nust be at least 8 letters");
-    else if (!hasUpperCase) setPasswordError("Pussword must consist at least of one upper case letter");
-    else if (!hasSpecialChar) setPasswordError("Password must have at least one special character");
+    if (!minLength) setPasswordError("Parolei jābūt vismaz 8 burtiem");
+    else if (!hasUpperCase) setPasswordError("Parolei jābūt vismaz vienam lielajam burtam");
+    else if (!hasSpecialChar) setPasswordError("Parolei jābūt vismaz vienai īpašajai zīmei");
     else setPasswordError(null);
   };
 
@@ -64,7 +64,7 @@ const Register = () => {
               width="72"
               height="57"
             /> */}
-            <h1 className="h3 mb-3 fw-normal">Welcome, please sign-up</h1>
+            <h1 className="h3 mb-3 fw-normal">Sveciens, Lūdzu reģistrēties!</h1>
           </div>
 
           {error && <p className="text-danger text-center">{error}</p>}
@@ -79,7 +79,7 @@ const Register = () => {
               onChange={(e) => validateEmail(e.target.value)}
               required
             />
-            <label htmlFor="floatingInput">Email address</label>
+            <label htmlFor="floatingInput">E-pasta adrese</label>
             {emailError && <div className="invalid-feedback">{emailError}</div>}
           </div>
 
@@ -93,7 +93,7 @@ const Register = () => {
               onChange={(e) => validatePassword(e.target.value)}
               required
             />
-            <label htmlFor="floatingPassword">Password</label>
+            <label htmlFor="floatingPassword">Parole</label>
             {passwordError && <div className="invalid-feedback">{passwordError}</div>}
           </div>
 
@@ -105,11 +105,11 @@ const Register = () => {
           </div> */}
 
           <button type="submit" className="btn btn-primary" disabled={emailError || passwordError}>
-            Sign up
+            Reģistrēties
           </button>
 
           <p className="mt-3 text-center">
-            Already have an account? <Link to="/login">Login</Link>
+            Jau ir konts? <Link to="/login">Ielogoties</Link>
           </p>
 
         </form>

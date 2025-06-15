@@ -4,8 +4,8 @@ import { useAuth } from "../context/AuthContext";
 import { format } from "date-fns";
 
 const OFFER_TYPES = {
-  1: "Game Currency",
-  2: "Account",
+  1: "Spēļu valūta",
+  2: "Konti",
 };
 
 const GAMES = {
@@ -85,25 +85,25 @@ const EditOffer = () => {
         body: formData,
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Error updating offer");
+      if (!res.ok) throw new Error(data.error || "Kļūda");
 
-      setSuccess("Offer updated successfully!");
+      setSuccess("Piedāvājums ir izmainīts!");
       setTimeout(() => navigate("/myOffers"), 1500);
     } catch (err) {
       setError(err.message);
     }
   };
 
-  if (loading) return <p className="text-center mt-4">Loading…</p>;
+  if (loading) return <p className="text-center mt-4">Ielādē…</p>;
   if (error)
     return <p className="text-center text-danger mt-4">{error}</p>;
 
   return (
     <div className="container mt-4">
-      <h2>Edit Offer #{id}</h2>
+      <h2>Mainīt piedāvājumu #{id}</h2>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="mb-3">
-          <label className="form-label">Name:</label>
+          <label className="form-label">Nosaukums:</label>
           <input
             type="text"
             className="form-control"
@@ -114,14 +114,14 @@ const EditOffer = () => {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Type:</label>
+          <label className="form-label">Tips:</label>
           <select
             className="form-select"
             value={type}
             onChange={(e) => setType(parseInt(e.target.value, 10) || 0)}
             required
           >
-            <option value="">Select type</option>
+            <option value="">Izvēlēties tipu</option>
             {Object.entries(OFFER_TYPES).map(([k, v]) => (
               <option key={k} value={k}>
                 {v}
@@ -131,7 +131,7 @@ const EditOffer = () => {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Price:</label>
+          <label className="form-label">Cena:</label>
           <input
             type="number"
             className="form-control"
@@ -143,7 +143,7 @@ const EditOffer = () => {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Description:</label>
+          <label className="form-label">Apraksts:</label>
           <textarea
             className="form-control"
             value={description}
@@ -154,14 +154,14 @@ const EditOffer = () => {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Game:</label>
+          <label className="form-label">Spēlē:</label>
           <select
             className="form-select"
             value={gameId}
             onChange={(e) => setGame(parseInt(e.target.value, 10) || 0)}
             required
           >
-            <option value="">Select a game</option>
+            <option value="">Izvēlēties spēli</option>
             {Object.entries(GAMES).map(([k, v]) => (
               <option key={k} value={k}>
                 {v}
@@ -172,7 +172,7 @@ const EditOffer = () => {
 
         {oldImages.length > 0 && (
           <div className="mb-3">
-            <label className="form-label">Current images:</label>
+            <label className="form-label">Attēli:</label>
             <div className="d-flex flex-wrap gap-2">
               {oldImages.map((img) => (
                 <img
@@ -183,11 +183,11 @@ const EditOffer = () => {
                 />
               ))}
             </div>
-            <small className="text-muted">They will be replaced if you upload new ones.</small>
+            <small className="text-muted">Tie tiks aizvietoti, ja jums būs jauni.</small>
           </div>
         )}
         <div className="mb-3">
-          <label className="form-label">Replace images (max 10):</label>
+          <label className="form-label">Aizvietot attēlus (max 10):</label>
           <input
             type="file"
             className="form-control"
@@ -197,13 +197,13 @@ const EditOffer = () => {
           />
           {newImages.length > 0 && (
             <small className="text-muted">
-              Selected: {newImages.map((f) => f.name).join(", ")}
+              Izvēlētie: {newImages.map((f) => f.name).join(", ")}
             </small>
           )}
         </div>
 
         <button type="submit" className="btn btn-primary">
-          Save changes
+          Saglabāt izmaiņas
         </button>
       </form>
 

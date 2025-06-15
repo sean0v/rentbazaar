@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const OFFER_TYPES = {
-  1: "Game Currency",
-  2: "Account"
+  1: "Spēļu valūta",
+  2: "Konti",
 };
 
 const Offers = () => {
@@ -34,7 +34,7 @@ const Offers = () => {
       const data = await response.json();
       setOffers(data.offers || []);
     } catch (error) {
-      console.error("Error fetching offers:", error);
+      console.error("Kļūda:", error);
     }
   };
 
@@ -42,7 +42,7 @@ const Offers = () => {
     <div className="container mt-4">
       <div className="d-flex justify-content-between mb-3">
         <select className="form-select w-25" onChange={(e) => setCategory(e.target.value)}>
-          <option value="">All Categories</option>
+          <option value="">Visas Kategorijas</option>
           {Object.entries(OFFER_TYPES).map(([key, value]) => (
             <option key={key} value={key}>
               {value}
@@ -53,20 +53,20 @@ const Offers = () => {
         <input
           type="text"
           className="form-control w-50"
-          placeholder="Search offers..."
+          placeholder="Meklēt piedāvājumus..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
 
         <select className="form-select w-25" onChange={(e) => setSortBy(e.target.value)}>
-          <option value="createdAt">By Date</option>
-          <option value="price">By Price</option>
-          <option value="rating">By Raiting</option>
+          <option value="createdAt">Pēc Datuma</option>
+          <option value="price">Pēc Cenas</option>
+          <option value="rating">Pēc Reitinga</option>
         </select>
 
         <select className="form-select w-25" onChange={(e) => setOrder(e.target.value)}>
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
+          <option value="asc">Augošā</option>
+          <option value="desc">Dilstošā</option>
         </select>
       </div>
 
@@ -81,12 +81,12 @@ const Offers = () => {
                   <p className="card-text text-muted">{offer.price} €</p>
                   <p className="card-text text-muted">{OFFER_TYPES[offer.type]}</p>
                 </div>
-                <Link to={`/offers/${offer.id}`} className="btn btn-primary">Buy</Link>
+                <Link to={`/offers/${offer.id}`} className="btn btn-primary">Nopirkt</Link>
               </div>
             </div>
           ))
         ) : (
-          <p className="text-center text-muted">Offers Not Found</p>
+          <p className="text-center text-muted">Piedāvājumii nav atrasti</p>
         )}
       </div>
     </div>

@@ -26,9 +26,9 @@ const Review = () => {
       });
 
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Error");
+      if (!response.ok) throw new Error(data.error || "Kļūda");
 
-      setSuccess("Your review is saved!");
+      setSuccess("Jūsu atsauce ir saglabāta!");
       setTimeout(() => navigate(`/offers/${offerId}`), 2000);
     } catch (error) {
       setError(error.message);
@@ -37,11 +37,11 @@ const Review = () => {
 
   return (
     <div className="container mt-4">
-      <h2>Leave review</h2>
+      <h2>Izveidot Atsauci</h2>
 
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label className="form-label">Mark:</label>
+          <label className="form-label">Vērtējums:</label>
           <div className="text-warning">
             {[...Array(5)].map((_, index) => (
               <i
@@ -56,7 +56,7 @@ const Review = () => {
 
         {/* 🔹 Текст отзыва */}
         <div className="mb-3">
-          <label className="form-label">Description:</label>
+          <label className="form-label">Apraksts:</label>
           <textarea
             className="form-control"
             value={description}
@@ -66,7 +66,7 @@ const Review = () => {
           ></textarea>
         </div>
 
-        <button type="submit" className="btn btn-primary">Send</button>
+        <button type="submit" className="btn btn-primary">Saglabāt</button>
       </form>
 
       {success && <p className="text-success mt-3">{success}</p>}

@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const OFFER_TYPES = {
-  1: "Game Currency",
-  2: "Account",
+  1: "Spēļu valūta",
+  2: "Konti",
 };
 
 const GAMES = {
@@ -62,9 +62,9 @@ const CreateOffer = () => {
       );
 
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Error creating offer");
+      if (!response.ok) throw new Error(data.error || "Kļūda, veidojot piedāvājumu");
 
-      setSuccess("Offer is created!");
+      setSuccess("Piedāvājums ir izveidots!");
       setTimeout(() => navigate("/"), 2000);
     } catch (err) {
       setError(err.message);
@@ -73,11 +73,11 @@ const CreateOffer = () => {
 
   return (
     <div className="container mt-4">
-      <h2>Create your offer</h2>
+      <h2>Izveidojiet savu piedāvājumu</h2>
 
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="mb-3">
-          <label className="form-label">Name:</label>
+          <label className="form-label">Nosaukums:</label>
           <input
             type="text"
             className="form-control"
@@ -88,14 +88,14 @@ const CreateOffer = () => {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Type:</label>
+          <label className="form-label">Tips:</label>
           <select
             className="form-select"
             value={type}
             onChange={(e) => setType(parseInt(e.target.value, 10) || 0)}
             required
           >
-            <option value="">Select type</option>
+            <option value="">Izvēlēties tipu</option>
             {Object.entries(OFFER_TYPES).map(([key, value]) => (
               <option key={key} value={key}>
                 {value}
@@ -105,7 +105,7 @@ const CreateOffer = () => {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Price:</label>
+          <label className="form-label">Cena:</label>
           <input
             type="number"
             className="form-control"
@@ -117,7 +117,7 @@ const CreateOffer = () => {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Description:</label>
+          <label className="form-label">Apraksts:</label>
           <textarea
             className="form-control"
             value={description}
@@ -127,14 +127,14 @@ const CreateOffer = () => {
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Game:</label>
+          <label className="form-label">Spēlē:</label>
           <select
             className="form-select"
             value={gameId}
             onChange={(e) => setGame(parseInt(e.target.value, 10) || 0)}
             required
           >
-            <option value="">Select a game</option>
+            <option value="">Izvēlēties spēli</option>
             {Object.entries(GAMES).map(([key, value]) => (
               <option key={key} value={key}>
                 {value}
@@ -143,7 +143,7 @@ const CreateOffer = () => {
           </select>
         </div>
         <div className="mb-3">
-          <label className="form-label">Images (max 10):</label>
+          <label className="form-label">Attēli (max 10):</label>
           <input
             type="file"
             className="form-control"
@@ -153,13 +153,13 @@ const CreateOffer = () => {
           />
           {images.length > 0 && (
             <small className="text-muted">
-              Selected: {images.map((f) => f.name).join(", ")}
+              Izvēlētie: {images.map((f) => f.name).join(", ")}
             </small>
           )}
         </div>
 
         <button type="submit" className="btn btn-primary">
-          Create
+          Izveidot
         </button>
       </form>
 

@@ -27,7 +27,7 @@ const Header = () => {
                   <svg className="bi d-block mx-auto mb-1" width="24" height="24">
                     <use xlinkHref="#table"></use>
                   </svg>
-                  Orders
+                  Pasūtījumi
                 </Link>
               </li>
               <li>
@@ -35,7 +35,7 @@ const Header = () => {
                   <svg className="bi d-block mx-auto mb-1" width="24" height="24">
                     <use xlinkHref="#table"></use>
                   </svg>
-                  My Offers
+                  Mani piedāvājumi
                 </Link>
               </li>
             </ul>
@@ -54,13 +54,13 @@ const Header = () => {
 <div className="text-end">
           {userId ? (
             <>
-            <Link to="/createOffer" className="btn btn-primary me-2">Create Offer</Link>
-            <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
+            <Link to="/createOffer" className="btn btn-primary me-2">Izveidot piedāvājumu</Link>
+            <button className="btn btn-danger" onClick={handleLogout}>Atteikties</button>
             </>
           ) : (
             <>
-              <Link to="/login" className="btn btn-light text-dark me-2">Login</Link>
-              <Link to="/register" className="btn btn-primary">Sign-up</Link>
+              <Link to="/login" className="btn btn-light text-dark me-2">Autorizēties</Link>
+              <Link to="/register" className="btn btn-primary">Piesakties</Link>
             </>
           )}
         </div>

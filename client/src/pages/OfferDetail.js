@@ -3,8 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const OFFER_TYPES = {
-    1: "Game Currency",
-    2: "Account"
+    1: "Spēļu valūta",
+    2: "Konti",
   };
 
 const StarRating = ({ mark }) => {
@@ -35,7 +35,7 @@ const OfferDetail = () => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error loading offer", error);
+        console.error("Kļūda ielādē", error);
         setLoading(false);
       });
   }, [id]);
@@ -57,7 +57,7 @@ const OfferDetail = () => {
       });
 
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Error while processing");
+      if (!response.ok) throw new Error(data.error || "Kļūda");
       console.log(response)
 
       setSuccess("Offer is bougth!");
@@ -67,8 +67,8 @@ const OfferDetail = () => {
     }
   };
 
-  if (loading) return <h2 className="text-center mt-5">Loading...</h2>;
-  if (!offer) return <h2 className="text-center text-danger mt-5">Offer not found</h2>;
+  if (loading) return <h2 className="text-center mt-5">Ielādē…</h2>;
+  if (!offer) return <h2 className="text-center text-danger mt-5">Piedāvājums nav atrasts</h2>;
 
   return (
     <div className="container mt-4">
@@ -76,11 +76,11 @@ const OfferDetail = () => {
         <div className="col-md-8">
           <h2>{offer.name}</h2>
           <p className="text-muted">{offer.description}</p>
-          <p><strong>Price:</strong> {offer.price} €</p>
-          <p><strong>Category:</strong> {OFFER_TYPES[offer.type]}</p>
+          <p><strong>Cena:</strong> {offer.price} €</p>
+          <p><strong>Kategorija:</strong> {OFFER_TYPES[offer.type]}</p>
         </div>
         <div className="col-md-4 text-end">
-          <button className="btn btn-success btn-lg" onClick={handleBuy}>Buy</button>
+          <button className="btn btn-success btn-lg" onClick={handleBuy}>Nopirkt</button>
         </div>
       </div>
 
@@ -97,18 +97,18 @@ const OfferDetail = () => {
   </div>
 )}
 
-      <h3 className="mt-5">Reviews</h3>
+      <h3 className="mt-5">Atsauces</h3>
       <div className="list-group">
         {offer.reviews.length > 0 ? (
           offer.reviews.map((review) => (
             <div key={review.id} className="list-group-item">
               <StarRating mark={review.mark} />
               <p className="mt-2">{review.description}</p>
-              <small className="text-muted">Author: {review.user.email}</small>
+              <small className="text-muted">Autors: {review.user.email}</small>
             </div>
           ))
         ) : (
-          <p className="text-muted">No reviews yet</p>
+          <p className="text-muted">Nav atsauces</p>
         )}
       </div>
     </div>
