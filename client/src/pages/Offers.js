@@ -77,18 +77,18 @@ const Offers = () => {
     <div className="card d-flex flex-row align-items-center p-3 shadow-sm">
     
       {offer.images && offer.images.length > 0 && (
-        <img
-          src={`https://rentbazaar-app.azurewebsites.net${offer.images[0].url}`}
-          alt={offer.name}
-          style={{
-            width: 100,
-            height: 100,
-            objectFit: "cover",
-            borderRadius: 6,
-            marginRight: 20,
-          }}
-        />
-      )}
+  <img
+    src={`https://rentbazaar-app.azurewebsites.net${offer.images[0].url}`}
+    alt={offer.name}
+    style={{
+      width: 100,
+      height: 100,
+      objectFit: "cover",
+      borderRadius: 6,
+      marginRight: 20,
+    }}
+  />
+)}
 
       <div className="flex-grow-1">
         <h5 className="card-title">{offer.name}</h5>

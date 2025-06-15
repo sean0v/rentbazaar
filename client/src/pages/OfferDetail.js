@@ -106,7 +106,6 @@ const OfferDetail = () => {
         </div>
       )}
 
-      {/* Модальное окно */}
       {selectedImage && (
         <div
           onClick={() => setSelectedImage(null)}
