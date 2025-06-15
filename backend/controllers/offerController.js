@@ -52,7 +52,6 @@ exports.getOffers = async (req, res) => {
           model: OfferImage,
           as: 'images',
           attributes: ['url', 'alt', 'order'],
-          separate: true,
           order: [['order', 'ASC']]
         }
       ],
