@@ -39,75 +39,110 @@ const Offers = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <div className="d-flex justify-content-between mb-3">
-        <select className="form-select w-25" onChange={(e) => setCategory(e.target.value)}>
-          <option value="">Visas Kategorijas</option>
-          {Object.entries(OFFER_TYPES).map(([key, value]) => (
-            <option key={key} value={key}>
-              {value}
-            </option>
-          ))}
-        </select>
+    <div className="container mt-1">
+  {/* Иллюстрация над фильтрами */}
+  <div className="text-center mb-1">
+    <img
+      src="/main-banner.png" // <-- Подставь свою
+      alt="Offers"
+      style={{
+        maxWidth: "700px",
+        opacity: 0.85,
+        borderRadius: "1px",
+        boxShadow: "0 0px 0px rgba(0,0,0,0.1)"
+      }}
+    />
 
-        <input
-          type="text"
-          className="form-control w-50"
-          placeholder="Meklēt piedāvājumus..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-
-        <select className="form-select w-25" onChange={(e) => setSortBy(e.target.value)}>
-          <option value="createdAt">Pēc Datuma</option>
-          <option value="price">Pēc Cenas</option>
-          <option value="rating">Pēc Reitinga</option>
-        </select>
-
-        <select className="form-select w-25" onChange={(e) => setOrder(e.target.value)}>
-          <option value="asc">Augošā</option>
-          <option value="desc">Dilstošā</option>
-        </select>
-      </div>
-
-      <div className="row">
-        {offers.length > 0 ? (
-          offers.map((offer) => (
-  <div key={offer.id} className="col-12 mb-3">
-    <div className="card d-flex flex-row align-items-center p-3 shadow-sm">
-    
-      {offer.images && offer.images.length > 0 && (
-        <div className="mb-4 d-flex flex-wrap gap-2">
-  <img
-    src={`https://rentbazaar-app.azurewebsites.net${offer.images[0].url}`}
-    alt={offer.name}
-    key={offer.images[0].url}
-    style={{
-      width: 100,
-      height: 100,
-      objectFit: "cover",
-      borderRadius: 6,
-      marginRight: 20,
-    }}
-  />
   </div>
-)}
 
-      <div className="flex-grow-1">
-        <h5 className="card-title">{offer.name}</h5>
-        <p className="card-text text-muted">{offer.description}</p>
-        <p className="card-text text-muted">{offer.price} €</p>
-        <p className="card-text text-muted">{OFFER_TYPES[offer.type]}</p>
-      </div>
+  {/* Фильтры */}
+  <div className="row g-3 mb-4 align-items-center">
+    <div className="col-md-3">
+      <select className="form-select" onChange={(e) => setCategory(e.target.value)}>
+        <option value="">Visas Kategorijas</option>
+        {Object.entries(OFFER_TYPES).map(([key, value]) => (
+          <option key={key} value={key}>{value}</option>
+        ))}
+      </select>
+    </div>
 
-      <Link to={`/offers/${offer.id}`} className="btn btn-primary">Nopirkt</Link>
+    <div className="col-md-4">
+      <input
+        type="text"
+        className="form-control"
+        placeholder="Meklēt piedāvājumus..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+    </div>
+
+    <div className="col-md-2">
+      <select className="form-select" onChange={(e) => setSortBy(e.target.value)}>
+        <option value="createdAt">Pēc Datuma</option>
+        <option value="price">Pēc Cenas</option>
+        <option value="rating">Pēc Reitinga</option>
+      </select>
+    </div>
+
+    <div className="col-md-3">
+      <select className="form-select" onChange={(e) => setOrder(e.target.value)}>
+        <option value="asc">Augošā</option>
+        <option value="desc">Dilstošā</option>
+      </select>
     </div>
   </div>
-))) : (
-          <p className="text-center text-muted">Piedāvājumi nav atrasti</p>
-        )}
+
+  {/* Список объявлений */}
+  <div className="row">
+    {offers.length > 0 ? (
+      offers.map((offer, idx) => (
+        <div key={offer.id} className="col-12 mb-4">
+          <div
+            className="card border rounded-3 shadow-sm p-3 d-flex flex-row align-items-center"
+            style={{
+              borderLeft: "4px solid #0d6efd",
+              backgroundColor: "#fff",
+              transition: "0.3s",
+              gap: "1rem"
+            }}
+          >
+            {/* Изображение */}
+            {offer.images?.length > 0 && (
+              <img
+                src={`https://rentbazaar-app.azurewebsites.net${offer.images[0].url}`}
+                alt={offer.name}
+                style={{
+                  width: 120,
+                  height: 120,
+                  objectFit: "cover",
+                  borderRadius: 12,
+                }}
+              />
+            )}
+
+            {/* Инфо */}
+            <div className="flex-grow-1">
+              <h5 className="fw-semibold mb-1">{offer.name}</h5>
+              <p className="text-muted small mb-1">{offer.description}</p>
+              <p className="fw-bold text-dark mb-1">{offer.price} €</p>
+              <span className="badge bg-secondary">{OFFER_TYPES[offer.type]}</span>
+            </div>
+
+            <Link to={`/offers/${offer.id}`} className="btn btn-outline-primary">
+              Skatīt
+            </Link>
+          </div>
+        </div>
+      ))
+    ) : (
+      <div className="col-12 text-center py-5">
+        <p className="text-muted fs-5">Piedāvājumi nav atrasti</p>
       </div>
-    </div>
+    )}
+  </div>
+</div>
+
+
   );
 };
 

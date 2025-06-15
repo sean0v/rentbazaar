@@ -14,59 +14,72 @@ const Header = () => {
 
   return (
     <header>
-      <div className="px-3 py-2 text-bg-dark border-bottom">
+      <div className="px-3 py-2 shadow-sm bg-light border-bottom">
         <div className="container">
-          <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <Link to="/" className="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-              RentBazaar
+          <div className="d-flex flex-wrap align-items-center justify-content-between">
+            <Link
+              to="/"
+              className="d-flex align-items-center text-decoration-none"
+              style={{ color: 'black' }}
+            >
+              <img src="/logo.png" alt="RentBazaar" height="40" className="me-2" />
             </Link>
-            {!userId ? null : (
-              <ul className="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-              <li>
-                <Link to="/orders" className="nav-link text-white">
-                  <svg className="bi d-block mx-auto mb-1" width="24" height="24">
-                    <use xlinkHref="#table"></use>
-                  </svg>
-                  Pasūtījumi
-                </Link>
-              </li>
-              <li>
-                <Link to="/myOffers" className="nav-link text-white">
-                  <svg className="bi d-block mx-auto mb-1" width="24" height="24">
-                    <use xlinkHref="#table"></use>
-                  </svg>
-                  Mani piedāvājumi
-                </Link>
-              </li>
+
+            <ul className="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+              {userId ? (
+                <>
+                  <li className="d-flex align-items-center border-end pe-3 me-3" style={{ borderColor: 'black' }}>
+                    <Link to="/orders" className="nav-link d-flex align-items-center p-0" style={{ color: 'black', fontWeight: '500' }}>
+                      <i className="bi bi-card-checklist fs-5 me-2"></i>
+                      Pasūtījumi
+                    </Link>
+                  </li>
+                  <li className="d-flex align-items-center border-end pe-3 me-3" style={{ borderColor: 'black' }}>
+                    <Link to="/myOffers" className="nav-link d-flex align-items-center p-0" style={{ color: 'black', fontWeight: '500' }}>
+                      <i className="bi bi-box-seam fs-5 me-2"></i>
+                      Mani piedāvājumi
+                    </Link>
+                  </li>
+                  <li className="d-flex align-items-center border-end pe-3 me-3" style={{ borderColor: 'black' }}>
+                    <Link to="/createOffer" className="nav-link d-flex align-items-center p-0" style={{ color: 'black', fontWeight: '500' }}>
+                      <i className="bi bi-plus-circle fs-5 me-2"></i>
+                      Izveidot piedāvājumu
+                    </Link>
+                  </li>
+                  <li className="d-flex align-items-center">
+                    <button
+                      onClick={handleLogout}
+                      className="btn btn-link nav-link d-flex align-items-center p-0"
+                      style={{ color: 'red', fontWeight: '500', textDecoration: 'none' }}
+                    >
+                      <i className="bi bi-box-arrow-right fs-5 me-2"></i>
+                      Atteikties
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="d-flex align-items-center border-end pe-3 me-3" style={{ borderColor: 'black' }}>
+                    <Link to="/login" className="nav-link d-flex align-items-center p-0" style={{ color: 'black', fontWeight: '500' }}>
+                      <i className="bi bi-box-arrow-in-right fs-5 me-2"></i>
+                      Autorizēties
+                    </Link>
+                  </li>
+                  <li className="d-flex align-items-center">
+                    <Link to="/register" className="nav-link d-flex align-items-center p-0" style={{ color: 'black', fontWeight: '500' }}>
+                      <i className="bi bi-person-plus fs-5 me-2"></i>
+                      Piesakties
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
-            )}
-            
           </div>
         </div>
       </div>
-
-      <div className="px-3 py-2 border-bottom mb-3">
-        <div className="container justify-content-right">
-          {/* <form className="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
-            <input type="search" className="form-control" placeholder="Search..." aria-label="Search" />
-          </form> */}
-
-<div className="text-end">
-          {userId ? (
-            <>
-            <Link to="/createOffer" className="btn btn-primary me-2">Izveidot piedāvājumu</Link>
-            <button className="btn btn-danger" onClick={handleLogout}>Atteikties</button>
-            </>
-          ) : (
-            <>
-              <Link to="/login" className="btn btn-light text-dark me-2">Autorizēties</Link>
-              <Link to="/register" className="btn btn-primary">Piesakties</Link>
-            </>
-          )}
-        </div>
-        </div>
-      </div>
     </header>
+
+
   );
 };
 

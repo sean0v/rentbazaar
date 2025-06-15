@@ -53,21 +53,42 @@ const Register = () => {
   };
 
   return (
-    <div className="container-sm d-flex justify-content-center align-items-center vh-100">
-      <main className="w-50 p-4 bg-white rounded shadow">
+    <div className="position-relative d-flex justify-content-center align-items-center vh-100 bg-light">
+      {/* Круглая картинка на фоне */}
+      <img
+        src="/circle-bg-register.png" // Убедись, что изображение лежит в /public
+        alt="background art"
+        className="position-absolute rounded-circle shadow-lg"
+        style={{
+          width: "420px",
+          height: "420px",
+          top: "34%",
+          left: "36%",
+          transform: "translate(-60%, -60%)",
+          zIndex: 0,
+          opacity: 0.69,
+          pointerEvents: "none",
+          objectFit: "cover",
+        }}
+      />
+
+      {/* Основная форма */}
+      <main
+        className="position-relative bg-white p-4 rounded shadow"
+        style={{ maxWidth: "570px", width: "100%", zIndex: 1 }}
+      >
         <form onSubmit={handleSubmit}>
-          <div className="text-center">
-            {/* <img
-              className="mb-4"
-              src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg"
-              alt="Bootstrap Logo"
-              width="72"
-              height="57"
-            /> */}
-            <h1 className="h3 mb-3 fw-normal">Sveciens, Lūdzu reģistrēties!</h1>
+          <div className="text-center mb-4">
+            <i className="bi bi-person-plus fs-1 text-primary mb-2"></i>
+            <h1 className="h4 fw-bold">Sveiciens, lūdzu reģistrējieties!</h1>
+            <p className="text-muted small">Ievadiet datus, lai izveidotu kontu</p>
           </div>
 
-          {error && <p className="text-danger text-center">{error}</p>}
+          {error && (
+            <div className="alert alert-danger py-2 text-center" role="alert">
+              {error}
+            </div>
+          )}
 
           <div className="form-floating mb-3">
             <input
@@ -79,16 +100,16 @@ const Register = () => {
               onChange={(e) => validateEmail(e.target.value)}
               required
             />
-            <label htmlFor="floatingInput">E-pasta adrese</label>
+            <label htmlFor="floatingInput">E-pasts</label>
             {emailError && <div className="invalid-feedback">{emailError}</div>}
           </div>
 
-          <div className="form-floating mb-3">
+          <div className="form-floating mb-4">
             <input
               type="password"
               className={`form-control ${passwordError ? "is-invalid" : ""}`}
               id="floatingPassword"
-              placeholder="Password"
+              placeholder="Parole"
               value={password}
               onChange={(e) => validatePassword(e.target.value)}
               required
@@ -97,24 +118,24 @@ const Register = () => {
             {passwordError && <div className="invalid-feedback">{passwordError}</div>}
           </div>
 
-          {/* <div className="form-check text-start my-3">
-            <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
-            <label className="form-check-label" htmlFor="flexCheckDefault">
-              Remember me
-            </label>
-          </div> */}
-
-          <button type="submit" className="btn btn-primary" disabled={emailError || passwordError}>
+          <button
+            type="submit"
+            className="btn btn-primary w-100 py-2 mb-3"
+            disabled={emailError || passwordError}
+          >
             Reģistrēties
           </button>
 
-          <p className="mt-3 text-center">
-            Jau ir konts? <Link to="/login">Ielogoties</Link>
-          </p>
-
+          <div className="text-center">
+            <span className="text-muted small">Jau ir konts?</span>{" "}
+            <Link to="/login" className="small fw-semibold">
+              Autorizēties
+            </Link>
+          </div>
         </form>
       </main>
     </div>
+
   );
 };
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,66 +37,82 @@ const Login = () => {
   };
 
   return (
-    <div className="container-sm d-flex justify-content-center align-items-center vh-100">
-      <main className="w-50 p-4 bg-white rounded shadow">
-        <form onSubmit={handleSubmit}>
-          <div className="text-center">
-            {/* <img
-              className="mb-4"
-              src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg"
-              alt="Bootstrap Logo"
-              width="72"
-              height="57"
-            /> */}
-            <h1 className="h3 mb-3 fw-normal">Lūdzu pizslēdzaties</h1>
-          </div>
+    
+    <div className="position-relative d-flex justify-content-center align-items-center vh-100 bg-light">
+  {}
+  <img
+    src="/circle-bg-login.png"
+    alt="background art"
+    className="position-absolute rounded-circle shadow-lg"
+    style={{
+      width: "430px",
+      height: "430px",
+      top: "36%",
+      left: "68%",
+      transform: "translate(-60%, -60%)",
+      zIndex: 0,
+      opacity: 0.8, 
+      pointerEvents: "none", 
+      objectFit: "cover"
+    }}
+  />
 
-          {error && <p className="text-danger text-center">{error}</p>}
+  {}
+  <main className="position-relative bg-white p-4 rounded shadow" style={{ maxWidth: "570px", width: "100%", zIndex: 1 }}>
+    <form onSubmit={handleSubmit}>
+      <div className="text-center mb-4">
+        <i className="bi bi-person-circle fs-1 text-primary mb-2"></i>
+        <h1 className="h4 fw-bold">Lūdzu pieslēdzaties</h1>
+        <p className="text-muted small">Ievadiet savu e-pastu un paroli, lai turpinātu</p>
+      </div>
 
-          <div className="form-floating mb-3">
-            <input
-              type="email"
-              className="form-control"
-              id="floatingInput"
-              placeholder="name@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <label htmlFor="floatingInput">E-adrese</label>
-          </div>
+      {error && (
+        <div className="alert alert-danger py-2 text-center" role="alert">
+          {error}
+        </div>
+      )}
 
-          <div className="form-floating mb-3">
-            <input
-              type="password"
-              className="form-control"
-              id="floatingPassword"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <label htmlFor="floatingPassword">Parole</label>
-          </div>
+      <div className="form-floating mb-3">
+        <input
+          type="email"
+          className="form-control"
+          id="floatingInput"
+          placeholder="name@example.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <label htmlFor="floatingInput">E-pasts</label>
+      </div>
 
-          {/* <div className="form-check text-start my-3">
-            <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
-            <label className="form-check-label" htmlFor="flexCheckDefault">
-              Remember me
-            </label>
-          </div> */}
+      <div className="form-floating mb-4">
+        <input
+          type="password"
+          className="form-control"
+          id="floatingPassword"
+          placeholder="Parole"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <label htmlFor="floatingPassword">Parole</label>
+      </div>
 
-          <button className="btn btn-primary w-100 py-2" type="submit">
-            Pieslēgties
-          </button>
+      <button className="btn btn-primary w-100 py-2 mb-3" type="submit">
+        Pieslēgties
+      </button>
 
-          <p className="mt-3 text-center">
-            Nav konta? <Link to="/register">Reģistrēties</Link>
-          </p>
+      <div className="text-center">
+        <span className="text-muted small">Nav konta?</span>{' '}
+        <Link to="/register" className="small fw-semibold">
+          Reģistrēties
+        </Link>
+      </div>
+    </form>
+  </main>
+</div>
 
-        </form>
-      </main>
-    </div>
+
   );
 };
 

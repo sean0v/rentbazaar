@@ -72,100 +72,144 @@ const CreateOffer = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <h2>Izveidojiet savu piedāvājumu</h2>
+    <div className="container mt-4" style={{ maxWidth: "600px" }}>
+  <h2 className="mb-4 text-center fw-bold" style={{ color: "#0d6efd" }}>
+    Izveidojiet savu piedāvājumu
+  </h2>
 
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <div className="mb-3">
-          <label className="form-label">Nosaukums:</label>
-          <input
-            type="text"
-            className="form-control"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
-
-        <div className="mb-3">
-          <label className="form-label">Tips:</label>
-          <select
-            className="form-select"
-            value={type}
-            onChange={(e) => setType(parseInt(e.target.value, 10) || 0)}
-            required
-          >
-            <option value="">Izvēlēties tipu</option>
-            {Object.entries(OFFER_TYPES).map(([key, value]) => (
-              <option key={key} value={key}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="mb-3">
-          <label className="form-label">Cena:</label>
-          <input
-            type="number"
-            className="form-control"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            required
-            min="0"
-          />
-        </div>
-
-        <div className="mb-3">
-          <label className="form-label">Apraksts:</label>
-          <textarea
-            className="form-control"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            rows="3"
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Spēlē:</label>
-          <select
-            className="form-select"
-            value={gameId}
-            onChange={(e) => setGame(parseInt(e.target.value, 10) || 0)}
-            required
-          >
-            <option value="">Izvēlēties spēli</option>
-            {Object.entries(GAMES).map(([key, value]) => (
-              <option key={key} value={key}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Attēli (max 10):</label>
-          <input
-            type="file"
-            className="form-control"
-            multiple
-            accept="image/*"
-            onChange={handleImageChange}
-          />
-          {images.length > 0 && (
-            <small className="text-muted">
-              Izvēlētie: {images.map((f) => f.name).join(", ")}
-            </small>
-          )}
-        </div>
-
-        <button type="submit" className="btn btn-primary">
-          Izveidot
-        </button>
-      </form>
-
-      {success && <p className="text-success mt-3">{success}</p>}
-      {error && <p className="text-danger mt-3">{error}</p>}
+  <form onSubmit={handleSubmit} encType="multipart/form-data" noValidate>
+    <div className="mb-4">
+      <label htmlFor="name" className="form-label fw-semibold">
+        Nosaukums:
+      </label>
+      <input
+        id="name"
+        type="text"
+        className="form-control shadow-sm"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+        placeholder="Ieraksti nosaukumu"
+        style={{ borderRadius: "8px" }}
+      />
     </div>
+
+    <div className="mb-4">
+      <label htmlFor="type" className="form-label fw-semibold">
+        Tips:
+      </label>
+      <select
+        id="type"
+        className="form-select shadow-sm"
+        value={type}
+        onChange={(e) => setType(parseInt(e.target.value, 10) || 0)}
+        required
+        style={{ borderRadius: "8px" }}
+      >
+        <option value="">Izvēlēties tipu</option>
+        {Object.entries(OFFER_TYPES).map(([key, value]) => (
+          <option key={key} value={key}>
+            {value}
+          </option>
+        ))}
+      </select>
+    </div>
+
+    <div className="mb-4">
+      <label htmlFor="price" className="form-label fw-semibold">
+        Cena:
+      </label>
+      <input
+        id="price"
+        type="number"
+        className="form-control shadow-sm"
+        value={price}
+        onChange={(e) => setPrice(e.target.value)}
+        required
+        min="0"
+        placeholder="Ieraksti cenu €"
+        style={{ borderRadius: "8px" }}
+      />
+    </div>
+
+    <div className="mb-4">
+      <label htmlFor="description" className="form-label fw-semibold">
+        Apraksts:
+      </label>
+      <textarea
+        id="description"
+        className="form-control shadow-sm"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        rows="4"
+        required
+        placeholder="Ieraksti aprakstu"
+        style={{ borderRadius: "8px", resize: "vertical", minHeight: "100px" }}
+      />
+    </div>
+
+    <div className="mb-4">
+      <label htmlFor="game" className="form-label fw-semibold">
+        Spēlē:
+      </label>
+      <select
+        id="game"
+        className="form-select shadow-sm"
+        value={gameId}
+        onChange={(e) => setGame(parseInt(e.target.value, 10) || 0)}
+        required
+        style={{ borderRadius: "8px" }}
+      >
+        <option value="">Izvēlēties spēli</option>
+        {Object.entries(GAMES).map(([key, value]) => (
+          <option key={key} value={key}>
+            {value}
+          </option>
+        ))}
+      </select>
+    </div>
+
+    <div className="mb-4">
+      <label htmlFor="images" className="form-label fw-semibold">
+        Attēli (max 10):
+      </label>
+      <input
+        id="images"
+        type="file"
+        className="form-control shadow-sm"
+        multiple
+        accept="image/*"
+        onChange={handleImageChange}
+        style={{ borderRadius: "8px" }}
+      />
+      {images.length > 0 && (
+        <small className="text-muted d-block mt-2" style={{ fontStyle: "italic" }}>
+          Izvēlētie: {images.map((f) => f.name).join(", ")}
+        </small>
+      )}
+    </div>
+
+    <button
+      type="submit"
+      className="btn btn-primary w-100 py-2 fs-5 fw-semibold"
+      style={{ borderRadius: "8px" }}
+    >
+      Izveidot
+    </button>
+  </form>
+
+  {success && (
+    <p className="text-success mt-3 text-center fw-semibold" style={{ fontSize: "1rem" }}>
+      {success}
+    </p>
+  )}
+  {error && (
+    <p className="text-danger mt-3 text-center fw-semibold" style={{ fontSize: "1rem" }}>
+      {error}
+    </p>
+  )}
+</div>
+
   );
 };
 

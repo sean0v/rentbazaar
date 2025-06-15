@@ -36,42 +36,85 @@ const Review = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <h2>Izveidot Atsauci</h2>
+    <div className="container mt-4" style={{ maxWidth: "480px" }}>
+  <h2 className="mb-4 text-center fw-bold" style={{ color: "#0d6efd" }}>
+    Izveidot atsauksmi
+  </h2>
 
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">Vērtējums:</label>
-          <div className="text-warning">
-            {[...Array(5)].map((_, index) => (
-              <i
-                key={index}
-                className={`bi ${index < mark ? "bi-star-fill" : "bi-star"}`}
-                style={{ cursor: "pointer" }}
-                onClick={() => setMark(index + 1)}
-              ></i>
-            ))}
-          </div>
-        </div>
-
-        {/* 🔹 Текст отзыва */}
-        <div className="mb-3">
-          <label className="form-label">Apraksts:</label>
-          <textarea
-            className="form-control"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            rows="3"
-            required
-          ></textarea>
-        </div>
-
-        <button type="submit" className="btn btn-primary">Saglabāt</button>
-      </form>
-
-      {success && <p className="text-success mt-3">{success}</p>}
-      {error && <p className="text-danger mt-3">{error}</p>}
+  <form onSubmit={handleSubmit}>
+    <div className="mb-4">
+      <label className="form-label fw-semibold" style={{ fontSize: "1.1rem" }}>
+        Vērtējums:
+      </label>
+      <div className="text-warning" style={{ fontSize: "2rem", userSelect: "none" }}>
+        {[...Array(5)].map((_, index) => (
+          <i
+            key={index}
+            className={`bi ${index < mark ? "bi-star-fill" : "bi-star"}`}
+            style={{
+              cursor: "pointer",
+              transition: "color 0.3s ease",
+              marginRight: 6,
+              color: index < mark ? "#ffc107" : "#ddd",
+            }}
+            onClick={() => setMark(index + 1)}
+            aria-label={`${index + 1} stars`}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") setMark(index + 1);
+            }}
+          />
+        ))}
+      </div>
     </div>
+
+    <div className="mb-4">
+      <label className="form-label fw-semibold" style={{ fontSize: "1.1rem" }}>
+        Apraksts:
+      </label>
+      <textarea
+        className="form-control shadow-sm"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        rows="5"
+        required
+        style={{
+          resize: "vertical",
+          minHeight: "110px",
+          borderRadius: "8px",
+          borderColor: "#ced4da",
+          transition: "border-color 0.3s ease",
+        }}
+        onFocus={(e) => (e.target.style.borderColor = "#0d6efd")}
+        onBlur={(e) => (e.target.style.borderColor = "#ced4da")}
+        placeholder="Ieraksti savu atsauksmi šeit..."
+      />
+    </div>
+
+    <button
+      type="submit"
+      className="btn btn-primary w-100 py-2 fs-5 fw-semibold"
+      disabled={!mark || description.trim() === ""}
+      style={{ borderRadius: "8px" }}
+    >
+      Saglabāt
+    </button>
+  </form>
+
+  {success && (
+    <p className="text-success mt-3 text-center" style={{ fontWeight: "600" }}>
+      {success}
+    </p>
+  )}
+  {error && (
+    <p className="text-danger mt-3 text-center" style={{ fontWeight: "600" }}>
+      {error}
+    </p>
+  )}
+</div>
+
+
   );
 };
 

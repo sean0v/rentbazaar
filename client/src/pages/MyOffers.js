@@ -66,67 +66,79 @@ const MyOffers = () => {
   if (error) return <p className="text-danger mt-4 text-center">{error}</p>;
 
   return (
-    <div className="container mt-4">
-      <h2>My Offers</h2>
+    <div className="container mt-5">
+  <h2 className="mb-4">Mani piedāvājumi</h2>
 
-      {offers.length === 0 ? (
-        <p className="text-muted text-center">Vēl nav piedāvājumu</p>
-      ) : (
-        <div className="row">
-          {offers.map((offer) => (
-            <div key={offer.id} className="col-12 mb-3">
-              <div className="card shadow-sm">
-                <div className="card-body d-flex justify-content-between align-items-start">
-                  <div>
-                    <h5 className="card-title mb-1">{offer.name}</h5>
-                    <p className="mb-1">
-                      <strong>Tips:</strong> {OFFER_TYPES[offer.type] || offer.type}
-                    </p>
-                    <p className="mb-1">
-                      <strong>Cena:</strong> {offer.price} €
-                    </p>
-                    <p className="mb-1">
-                      <strong>Izveidots:</strong>{" "}
-                      {format(new Date(offer.createdAt), "dd.MM.yyyy")}
-                    </p>
-                    <button
-                      className="btn btn-link p-0"
-                      onClick={() => toggleExpand(offer.id)}
-                    >
-                      {expandedId === offer.id ? "Aizvērt detaļas" : "Parādīt detaļas"}
-                    </button>
-                  </div>
+  {offers.length === 0 ? (
+    <p className="text-muted text-center fs-5 mt-5">Vēl nav piedāvājumu</p>
+  ) : (
+    <div className="row gy-4">
+      {offers.map((offer) => (
+        <div key={offer.id} className="col-12">
+          <div
+            className="card shadow-lg rounded border border-secondary"
+            style={{ backgroundColor: "#fafafa", padding: "1.5rem" }}
+          >
+            <div className="card-body d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+              <div>
+                <h5 className="card-title mb-2">
+                  Piedāvājums: <strong>{offer.name}</strong>
+                </h5>
+                <p className="mb-1">
+                  <strong>Tips:</strong>{" "}
+                  <span className="badge bg-info text-dark">
+                    {OFFER_TYPES[offer.type] || offer.type}
+                  </span>
+                </p>
+                <p className="mb-1 text-muted" style={{ fontSize: "0.9rem" }}>
+                  <strong>Cena:</strong> {offer.price} €
+                </p>
+                <p className="mb-0 text-muted" style={{ fontSize: "0.9rem" }}>
+                  <strong>Izveidots:</strong>{" "}
+                  {format(new Date(offer.createdAt), "dd.MM.yyyy")}
+                </p>
+                <button
+                  className="btn btn-outline-primary btn-sm mt-3"
+                  onClick={() => toggleExpand(offer.id)}
+                >
+                  {expandedId === offer.id
+                    ? "Aizvērt detaļas"
+                    : "Parādīt detaļas"}
+                </button>
+              </div>
 
-                  <div className="d-flex">
-                    <button
-                      className="btn btn-warning me-2"
-                      onClick={() => navigate(`/updateOffer/${offer.id}`)}
-                    >
-                      Mainīt
-                    </button>
-
-                    <button
-                      className="btn btn-outline-danger"
-                      onClick={() => deleteOffer(offer.id)}
-                    >
-                      Izdzēst
-                    </button>
-                  </div>
-                </div>
-
-                {expandedId === offer.id && (
-                  <div className="card-footer bg-light">
-                    <p className="mb-1">
-                      <strong>Apraksts:</strong> {offer.description}
-                    </p>
-                  </div>
-                )}
+              <div className="d-flex flex-wrap gap-3">
+                <button
+                  className="btn btn-warning"
+                  onClick={() => navigate(`/updateOffer/${offer.id}`)}
+                  style={{ fontSize: "1.1rem", padding: "0.5rem 1.2rem" }}
+                >
+                  Mainīt
+                </button>
+                <button
+                  className="btn btn-outline-danger"
+                  onClick={() => deleteOffer(offer.id)}
+                  style={{ fontSize: "1.1rem", padding: "0.5rem 1.2rem" }}
+                >
+                  Izdzēst
+                </button>
               </div>
             </div>
-          ))}
+
+            {expandedId === offer.id && (
+              <div className="card-footer bg-white border-top rounded-bottom mt-3">
+                <h6 className="mb-3">Apraksts</h6>
+                <p className="mb-0">{offer.description}</p>
+              </div>
+            )}
+          </div>
         </div>
-      )}
+      ))}
     </div>
+  )}
+</div>
+
+
   );
 };
 
