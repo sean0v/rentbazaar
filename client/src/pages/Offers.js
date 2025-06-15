@@ -79,7 +79,7 @@ const Offers = () => {
       {offer.images && offer.images.length > 0 && (
         <div className="mb-4 d-flex flex-wrap gap-2">
   <img
-    src={`https://rentbazaar-app.azurewebsites.net${offer.images[1].url}`}
+    src={`https://rentbazaar-app.azurewebsites.net${offer.images[0].url}`}
     alt={offer.name}
     key={offer.images[0].url}
     style={{
