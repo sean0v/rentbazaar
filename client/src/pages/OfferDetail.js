@@ -1,14 +1,13 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const OFFER_TYPES = {
-    1: "Spēļu valūta",
-    2: "Konti",
-  };
+  1: "Spēļu valūta",
+  2: "Konti",
+};
 
 const StarRating = ({ mark }) => {
-    console.log(mark)
   return (
     <div className="text-warning">
       {[...Array(5)].map((_, index) => (
@@ -26,6 +25,7 @@ const OfferDetail = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null); // ← Добавили для модалки
 
   useEffect(() => {
     fetch(`https://rentbazaar-app.azurewebsites.net/api/offers/${id}`)
@@ -58,10 +58,9 @@ const OfferDetail = () => {
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Kļūda");
-      console.log(response)
 
       setSuccess("Offer is bougth!");
-      navigate("/orders")
+      navigate("/orders");
     } catch (error) {
       setError(error.message);
     }
@@ -85,17 +84,58 @@ const OfferDetail = () => {
       </div>
 
       {offer.images && offer.images.length > 0 && (
-  <div className="mb-4 d-flex flex-wrap gap-2">
-    {offer.images.map((img) => (
-      <img
-        key={img.url}
-        src={`https://rentbazaar-app.azurewebsites.net${img.url}`} 
-        alt={img.alt || offer.name}
-        style={{ width: 150, height: 150, objectFit: "cover", borderRadius: 6 }}
-      />
-    ))}
-  </div>
-)}
+        <div className="mb-4 d-flex flex-wrap gap-2">
+          {offer.images.map((img) => {
+            const fullUrl = `https://rentbazaar-app.azurewebsites.net${img.url}`;
+            return (
+              <img
+                key={img.url}
+                src={fullUrl}
+                alt={img.alt || offer.name}
+                onClick={() => setSelectedImage(fullUrl)}
+                style={{
+                  width: 150,
+                  height: 150,
+                  objectFit: "cover",
+                  borderRadius: 6,
+                  cursor: "pointer",
+                }}
+              />
+            );
+          })}
+        </div>
+      )}
+
+      {/* Модальное окно */}
+      {selectedImage && (
+        <div
+          onClick={() => setSelectedImage(null)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0,0,0,0.8)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1000,
+            cursor: "zoom-out",
+          }}
+        >
+          <img
+            src={selectedImage}
+            alt="Fullscreen"
+            style={{
+              maxWidth: "90%",
+              maxHeight: "90%",
+              borderRadius: 10,
+              boxShadow: "0 0 20px rgba(255,255,255,0.2)",
+            }}
+          />
+        </div>
+      )}
 
       <h3 className="mt-5">Atsauces</h3>
       <div className="list-group">

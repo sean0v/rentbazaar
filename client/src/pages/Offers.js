@@ -73,20 +73,35 @@ const Offers = () => {
       <div className="row">
         {offers.length > 0 ? (
           offers.map((offer) => (
-            <div key={offer.id} className="col-12 mb-3">
-              <div className="card d-flex flex-row align-items-center p-3 shadow-sm">
-                <div className="flex-grow-1">
-                  <h5 className="card-title">{offer.name}</h5>
-                  <p className="card-text text-muted">{offer.description}</p>
-                  <p className="card-text text-muted">{offer.price} €</p>
-                  <p className="card-text text-muted">{OFFER_TYPES[offer.type]}</p>
-                </div>
-                <Link to={`/offers/${offer.id}`} className="btn btn-primary">Nopirkt</Link>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p className="text-center text-muted">Piedāvājumii nav atrasti</p>
+  <div key={offer.id} className="col-12 mb-3">
+    <div className="card d-flex flex-row align-items-center p-3 shadow-sm">
+    
+      {offer.images && offer.images.length > 0 && (
+        <img
+          src={`https://rentbazaar-app.azurewebsites.net${offer.images[0].url}`}
+          alt={offer.name}
+          style={{
+            width: 100,
+            height: 100,
+            objectFit: "cover",
+            borderRadius: 6,
+            marginRight: 20,
+          }}
+        />
+      )}
+
+      <div className="flex-grow-1">
+        <h5 className="card-title">{offer.name}</h5>
+        <p className="card-text text-muted">{offer.description}</p>
+        <p className="card-text text-muted">{offer.price} €</p>
+        <p className="card-text text-muted">{OFFER_TYPES[offer.type]}</p>
+      </div>
+
+      <Link to={`/offers/${offer.id}`} className="btn btn-primary">Nopirkt</Link>
+    </div>
+  </div>
+))) : (
+          <p className="text-center text-muted">Piedāvājumi nav atrasti</p>
         )}
       </div>
     </div>
