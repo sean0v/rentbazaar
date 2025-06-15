@@ -21,6 +21,7 @@ const OfferDetail = () => {
   const { id } = useParams();
   const [offer, setOffer] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [quantity, setQuantity] = useState(1);
   const { userId } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState(null);
@@ -53,7 +54,7 @@ const OfferDetail = () => {
       const response = await fetch("https://rentbazaar-app.azurewebsites.net/api/orders/placeOrder", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, offerId: id }),
+        body: JSON.stringify({ userId, offerId: id, quantity: quantity}),
       });
 
       const data = await response.json();
@@ -77,6 +78,20 @@ const OfferDetail = () => {
           <p className="text-muted">{offer.description}</p>
           <p><strong>Cena:</strong> {offer.price} €</p>
           <p><strong>Kategorija:</strong> {OFFER_TYPES[offer.type]}</p>
+          {offer.type === 1 && (
+            <div className="mb-3">
+              <label htmlFor="quantity" className="form-label">Daudzums</label>
+              <input
+                type="number"
+                id="quantity"
+                className="form-control"
+                min={1}
+                max={100}
+                value={quantity}
+                onChange={(e) => setQuantity(Math.max(1, Math.min(100, parseInt(e.target.value) || 1)))}
+              />
+            </div>
+          )}
         </div>
         <div className="col-md-4 text-end">
           <button className="btn btn-success btn-lg" onClick={handleBuy}>Nopirkt</button>

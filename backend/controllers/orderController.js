@@ -3,9 +3,9 @@ const { Offer } = require('../models');
 
 exports.placeOrder = async (req, res) => {
   try {
-    const { userId, offerId } = req.body;
+    const { userId, offerId, quantity } = req.body;
 
-    await Users2Offers.create({ userId, offerId, status: 1 });
+    await Users2Offers.create({ userId, offerId, status: 1, quantity });
 
     res.status(201).json({ message: 'Ok'});
   } catch (error) {

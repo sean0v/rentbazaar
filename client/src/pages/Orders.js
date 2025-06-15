@@ -89,7 +89,8 @@ const Orders = () => {
                   <div className="card-footer bg-light">
                     <h6 className="mb-2">{order.offer.name}</h6>
                     <p className="mb-1"><strong>Kategorija:</strong> {OFFER_TYPES[order.offer.type]}</p>
-                    <p className="mb-1"><strong>Cena:</strong> {order.offer.price} €</p>
+                    <p className="mb-1"><strong>Cena par Produktu:</strong> {order.offer.price} €</p>
+                    <p className="mb-1"><strong>Cena kopā:</strong> {order.offer.price * order.offer.quantity} €</p>
                     <p className="mb-1"><strong>Apraksts:</strong> {order.offer.description}</p>
                   </div>
                 )}
