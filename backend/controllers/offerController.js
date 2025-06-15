@@ -47,6 +47,15 @@ exports.getOffers = async (req, res) => {
       attributes: {
         include: [[ratingLiteral, 'rating']]
       },
+      include: [
+        {
+          model: OfferImage,
+          as: 'images',
+          attributes: ['url', 'alt', 'order'],
+          separate: true,
+          order: [['order', 'ASC']]
+        }
+      ],
       order: orderClause
     });
 
