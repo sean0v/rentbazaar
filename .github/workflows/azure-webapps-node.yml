@@ -1,0 +1,49 @@
+name: Deploy Node + React to Azure Web App
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  
+
+env:
+  AZURE_WEBAPP_NAME: rentbazaar-app
+  NODE_VERSION: 18.x
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    # ---------- фронт ----------
+    - name: Install client deps
+      run: npm ci
+      working-directory: client
+
+    - name: Build client
+      run: CI=false npm run build
+      working-directory: client
+
+    # копируем build → backend/client/build
+    - name: Copy build into backend
+      run: |
+        rm -rf backend/client/build
+        mkdir -p backend/client
+        cp -R client/build backend/client/
+
+    # ---------- бэк ----------
+    - name: Install backend deps
+      run: npm ci --omit=dev
+      working-directory: backend
+
+    # ---------- деплой ----------
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        package: backend
