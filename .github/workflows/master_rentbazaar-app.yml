@@ -3,7 +3,7 @@ name: Deploy Node + React to Azure Web App
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:  
+  workflow_dispatch:
 
 env:
   AZURE_WEBAPP_NAME: rentbazaar-app
@@ -15,8 +15,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    # ---------- фронт ----------
-    - name: Install client deps
+    # ---------- фронт ----------    
+    - name: Install client dependencies
       run: npm ci
       working-directory: client
 
@@ -25,18 +25,18 @@ jobs:
       working-directory: client
 
     # копируем build → backend/client/build
-    - name: Copy build into backend
+    - name: Copy client build into backend
       run: |
         rm -rf backend/client/build
         mkdir -p backend/client
         cp -R client/build backend/client/
 
-    # ---------- бэк ----------
-    - name: Install backend deps
+    # ---------- бэк ----------    
+    - name: Install backend dependencies
       run: npm ci --omit=dev
       working-directory: backend
 
-    # ---------- деплой ----------
+    # ---------- деплой ----------    
     - name: Azure Login
       uses: azure/login@v1
       with:
